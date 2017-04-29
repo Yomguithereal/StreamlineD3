@@ -6,15 +6,17 @@ Providing developers with a simple way to create live visualizations for their l
 
 
 ## Features
-  * Built-in functions to automate API GET Requests
+  * Built-in functions to automate subscribing to live data streams
+  * Additional functions to automate API GET requests
   * Many options to customize visualizations
-  * Support for the 4 most widely used visualizations; Bar, line, Scatter and Area graphs
+  * Support for the 4 most widely used visualizations; Bar, Line, Scatter and Area graphs
   
  
 ## Getting Started
 
-  1. ```npm install streamlined3``` <br/>
-  2. Once you have a server running: <br/>
+  1. Install our library ```npm install streamlined3```
+  <br/>
+  2. Once you have a server running:
   
      ### Server
      
@@ -25,17 +27,17 @@ Providing developers with a simple way to create live visualizations for their l
      3. Create a config object:<br/>
      
      ```
-        let config = {
-        width:  10, //data.time
-        height:  10,
-        xdomain:  10,//width of xAxis
-        ydomain:  10,//height of yAxis
-        xticks: 10,
-        yticks: 10,
-        xScale:   counter++,//data for xAxis
-        yScale:   msg.num_bikes_available,//data for yAxis
-        xLabel_text: 'abc',
-        yLabel_text: 'abc'
+      let config = {
+        width:      10, //data.time
+        height:     10,
+        xdomain:    10,//width of xAxis
+        ydomain:    10,//height of yAxis
+        xticks:     10,
+        yticks:     10,
+        xScale:     counter++,//data for xAxis
+        yScale:     msg.num_bikes_available,//data for yAxis
+        xLabel:     'abc',
+        yLabel:     'abc'
       };
       ```
       
