@@ -1,9 +1,7 @@
 ## <b>Project is currently in development</b>
 
 # StreamlineD3
-Providing developers with a simple way to create live visualizations for their live data streams.
-
-
+Providing developers with a simple way to create live updating visualizations for their streaming data.
 
 ## Features
   * Built-in functions to automate subscribing to live data streams
@@ -11,7 +9,6 @@ Providing developers with a simple way to create live visualizations for their l
   * Many options to customize visualizations
   * Support for the 4 most widely used visualizations; Bar, Line, Scatter and Area graphs
   
- 
 ## Getting Started
 
 1. Install our library ```npm install streamlined3``` <br/>
@@ -19,15 +16,15 @@ Providing developers with a simple way to create live visualizations for their l
   
   ### Server
      
-     1. Require our library:<br/>
+     1. Require our library:
      ```
      const streamline = require('streamlined3');
-     ```<br/>
+     ```
      2. Create a new instance of the stream you want to visualize, passing in your server:<br/>
      ```
      let bikeStream = new streamline(server);
-     ```<br/>
-     3. Create a config object:<br/>
+     ```
+     3. Create a config object:
      ```
       let config = {
         width:      10, //data.time
@@ -51,9 +48,9 @@ Providing developers with a simple way to create live visualizations for their l
 
    ### HTML
       
-      1. Add our library as a script: <br/>
+      1. Add our library as a script: 
       ```<script type="text/javascript" src="graphs/line.js"></script>```
-      2. Add a ```<div>``` node with a class of ```chart``` where you want your visualization to appear:<br/>
+      2. Add a ```<div>``` node with a class of ```chart``` where you want your visualization to appear:
       ```<div class="chart"></div>```
       
-      and voilà! You now have a working, live-updating visualization.
+      And voilà! You now have a working, live-updating visualization.
