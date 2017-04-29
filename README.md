@@ -1,4 +1,4 @@
-## **Project is currently in development**
+## <b>Project is currently in development</b>
 
 # StreamlineD3
 Providing developers with a simple way to create live visualizations for their live data streams.
@@ -51,7 +51,7 @@ Providing developers with a simple way to create live visualizations for their l
       
       1. Add our library as a script: <br/>
       ```<script type="text/javascript" src="graphs/line.js"></script>```
-      2. Add a ```<div>``` node with a class of ```chart``` where you want your visualization to appear:
+      2. Add a ```<div>``` node with a class of ```chart``` where you want your visualization to appear:<br/>
       ```<div class="chart"></div>```
       
       and voilà! You now have a working, live-updating visualization.
