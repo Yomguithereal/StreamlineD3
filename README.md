@@ -14,10 +14,10 @@ Providing developers with a simple way to create live visualizations for their l
  
 ## Getting Started
 
-  1. Install our library ```npm install streamlined3``` <br/>
-  2. Once you have a server running:
+1. Install our library ```npm install streamlined3``` <br/>
+2. Once you have a server running:
   
-     ### Server
+  ### Server
      
      1. Require our library:<br/>
      ```const streamline = require('streamlined3');```<br/>
