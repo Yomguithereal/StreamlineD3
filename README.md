@@ -14,7 +14,7 @@ Providing developers with a simple way to create live visualizations for their l
  
 ## Getting Started
 
-  1. Install our library ```npm install streamlined3```
+  1. Install our library ```npm install streamlined3``` <br/>
   2. Once you have a server running:
   
      ### Server
