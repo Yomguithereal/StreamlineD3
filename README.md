@@ -11,16 +11,19 @@ Providing developers with a simple way to create live visualizations for their l
  
 ## Quick Start
 
-  1. ```npm install streamlined3```
-  2. Once you have a server running:
-     Server.js:
+  1. ```npm install streamlined3``` <br/>
+  2. Once you have a server running: <br/>
+  
+     ### Server.js
      
      Require our library:<br/>
      ```const streamline = require('streamlined3');```<br/>
      Create a new instance of the stream you want to visualize, passing in your server:<br/>
      ```let bikeStream = new streamline(server);```<br/>
      Create a config object:<br/>
-     ```      let config = {
+     
+     ```
+        let config = {
         width:  10, //data.time
         height:  10,
         xdomain:  10,//width of xAxis
@@ -31,9 +34,12 @@ Providing developers with a simple way to create live visualizations for their l
         yScale:   msg.num_bikes_available,//data for yAxis
         xLabel_text: 'abc',
         yLabel_text: 'abc'
-      };```<br/>
-      Call bikeStream.connect()<br/>
-      ```bikeStream.connect((socket) => {
-          bikeStream.line(socket, myData);
-         });
-     
+      };
+      ```
+      
+      Invoke the StreamlineD3 ```connect``` method for the new instance:<br/>
+      
+      ```
+       bikeStream.connect((socket) => {
+         bikeStream.line(socket, myData);
+       });
