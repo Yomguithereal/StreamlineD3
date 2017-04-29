@@ -20,11 +20,14 @@ Providing developers with a simple way to create live visualizations for their l
   ### Server
      
      1. Require our library:<br/>
-     ```const streamline = require('streamlined3');```<br/>
+     ```
+     const streamline = require('streamlined3');
+     ```<br/>
      2. Create a new instance of the stream you want to visualize, passing in your server:<br/>
-     ```let bikeStream = new streamline(server);```<br/>
+     ```
+     let bikeStream = new streamline(server);
+     ```<br/>
      3. Create a config object:<br/>
-     
      ```
       let config = {
         width:      10, //data.time
@@ -39,16 +42,14 @@ Providing developers with a simple way to create live visualizations for their l
         yLabel:     'abc'
       };
       ```
-      
       4. Invoke the StreamlineD3 ```connect``` method for the new instance:<br/>
-      
       ```
        bikeStream.connect((socket) => {
          bikeStream.line(socket, myData);
        });
        ```
 
-      ### HTML
+   ### HTML
       
       1. Add our library as a script: <br/>
       ```<script type="text/javascript" src="graphs/line.js"></script>```
