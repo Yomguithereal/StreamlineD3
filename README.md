@@ -11,46 +11,46 @@ Providing developers with a simple way to create live updating visualizations fo
   
 ## Getting Started
 
-1. Install our library ```npm install streamlined3``` <br/>
+1. Use ```npm install streamlined3``` to install our library. <br/>
 2. Once you have a server running:
   
-  ### Server
+### Server
      
-     1. Require our library:
-     ```
-     const streamline = require('streamlined3');
-     ```
-     2. Create a new instance of the stream you want to visualize, passing in your server:<br/>
-     ```
-     let bikeStream = new streamline(server);
-     ```
-     3. Create a config object:
-     ```
-      let config = {
-        width:      10, //data.time
-        height:     10,
-        xdomain:    10,//width of xAxis
-        ydomain:    10,//height of yAxis
-        xticks:     10,
-        yticks:     10,
-        xScale:     counter++,//data for xAxis
-        yScale:     msg.num_bikes_available,//data for yAxis
-        xLabel:     'abc',
-        yLabel:     'abc'
-      };
-      ```
-      4. Invoke the StreamlineD3 ```connect``` method for the new instance:<br/>
-      ```
-       bikeStream.connect((socket) => {
-         bikeStream.line(socket, myData);
-       });
-       ```
+1. Require our library:
+```
+const streamline = require('streamlined3');
+```
+2. Create a new instance of the stream you want to visualize, passing in your server:<br/>
+```
+let bikeStream = new streamline(server);
+```
+3. Create a config object:
+```
+let config = {
+  width:      10, //data.time
+  height:     10,
+  xdomain:    10,//width of xAxis
+  ydomain:    10,//height of yAxis
+  xticks:     10,
+  yticks:     10,
+  xScale:     counter++,//data for xAxis
+  yScale:     msg.num_bikes_available,//data for yAxis
+  xLabel:     'abc',
+  yLabel:     'abc'
+};
+```
+4. Invoke the StreamlineD3 ```connect``` method for the new instance:<br/>
+```
+bikeStream.connect((socket) => {
+  bikeStream.line(socket, myData);
+});
+```
 
-   ### HTML
+### HTML
       
-      1. Add our library as a script: 
-      ```<script type="text/javascript" src="graphs/line.js"></script>```
-      2. Add a ```<div>``` node with a class of ```chart``` where you want your visualization to appear:
-      ```<div class="chart"></div>```
+1. Add our library as a script: 
+```<script type="text/javascript" src="graphs/line.js"></script>```
+2. Add a ```<div>``` node with a class of ```chart``` where you want your visualization to appear:
+```<div class="chart"></div>```
       
-      And voilà! You now have a working, live-updating visualization.
+And voilà! You now have a working, live-updating visualization.
