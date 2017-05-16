@@ -65,7 +65,7 @@ myStream.connect((socket) => {
 });
 ```
 
-###Install Redis and Start Your Servers
+### Install Redis and Start Your Servers
 
 Because sockets and Node clusters don't work well togther without additional measures taken, you must install Redis and start a Redis server. The easiest way is through HomeBrew.  Download Homebrew https://brew.sh/ and then in the terminal ```$ brew install redis```.  Once Redis is installed ```$redis-server``` to start a Redis server.  Lastly, type ```$ node index.js``` or whatever you named your js file to start the initial Node server we set up for you in our library.  Note: all these steps assume you are using a mac.  If you're using windows, these Bash commands will not work.  
 
