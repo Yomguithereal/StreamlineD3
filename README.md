@@ -95,7 +95,7 @@ And voilà! You now have a working, live-updating visualization.
 
 ## Specific Configuration Settings for the Bar Graph
 
-  1. Method
+  1. Method <br/>
    ```
    myStream.connect((socket) => {
      myStream.bar(socket, barData, barConfig);
@@ -128,7 +128,7 @@ And voilà! You now have a working, live-updating visualization.
 
 ## Specific Configuration Settings for the Line Graph
 
-  1. Method
+  1. Method <br/>
     ```
     myStream.connect((socket) => {
       myStream.line(socket, lineData, lineConfig);
@@ -159,36 +159,52 @@ And voilà! You now have a working, live-updating visualization.
 
 ## Specific Configuration Settings for the Bubble Graph
 
-  1. Method
+  1. Method <br/>
     ```
     myStream.connect((socket) => {
-      myStream.line(socket, lineData, lineConfig);
+      myStream.bubbleGraph(socket, bubbleData, bubbleConfig);
     });
     ```
   2. Config File
    ```
-   let lineConfig = {
+   let bubbleConfig = {
      setWidth: 600,
      setHeight: 400,
-     shiftXAxis: true,
-     xDomainUpper: 50,
-     xDomainLower: 0,
-     yDomainUpper: 40,
-     yDomainLower: 0,
-     xTicks: 10,
-     yTicks: 10,
-     xScale: 'counter',
-     yScale: 'num_bikes_available',
-     xLabel_text: 'at the currently reporting station',
-     yLabel_text: 'number of available bikes'
+     text: 'station_id',
+     volume: 'num_bikes_available',
    };
    ```
  3. Html
   ```
-   <div id="line-chart"></div>
+   <div id="bubble-graph"></div>
   ```
 
 ## Specific Configuration Settings for the Word-Cloud
+
+
+  1. Method <br/>
+    ```
+    myStream.connect((socket) => {
+      myStream.wordCloud(socket, wordCloudConfig);
+    });
+    ```
+  2. Config File
+   ```
+    let wordCloudConfig = {
+      colors: ['#FB3640', '#605F5E', '#1D3461', '#1F487E', '#247BA0'],
+      colorDomain: [5, 20, 40, 60, 100],
+      font: 'Source Sans Pro',
+      fontSize: 40,
+      padding: 10,
+      rotate: 0,
+      height: 600,
+      width: 2000,
+    }
+   ```
+ 3. Html
+  ```
+   <div id="word-cloud"></div>
+  ```
 
 ## Specific Configuration Settings for the Pie Chart
 
