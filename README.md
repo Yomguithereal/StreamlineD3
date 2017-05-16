@@ -231,11 +231,11 @@ And voilà! You now have a working, live-updating visualization.
 ## Specific Configuration Settings for the Scatter
 
   1. Method <br/>
-    ```
+ ```
     myStream.connect((socket) => {
       myStream.scatter(socket, scatterData, scatterConfig);
     });
-    ```
+```
   2. Config File
    ```
     let scatterConfig = {
