@@ -4,10 +4,10 @@
 Providing developers with a simple way to create live updating visualizations for their streaming data.
 
 ## Features
-  * Built-in functions to automate subscribing to live data streams
-  * Additional functions to automate API GET requests
-  * Many options to customize visualizations
-  * Support for the 4 most widely used visualizations; Bar, Line, Scatter and Area graphs
+  * Make each visualiztion your own with custom colors, fonts, heights, widths, and more.
+  * Our diffing algorithm renders only the data that changes for blazing fast performance.
+  * Load balancing through Node clusters lets your app scale to multiple streams and visualizations.
+  * Pre-built ready to use visualizations including; Bar, Line, Scatter, Pie, Bubble, Word-Cloud, and World Map.
   
 ## Getting Started
 
@@ -24,7 +24,7 @@ const streamline = require('streamlined3');
 ```
 let bikeStream = new streamline(server);
 ```
-3. Create a config object:
+3. Create a config object (see below for what type of key/value pairs you'll need for each visualization):
 ```
 let config = {
   width:      10, //data.time
@@ -48,9 +48,15 @@ bikeStream.connect((socket) => {
 
 ### HTML
       
-1. Add our library as a script: 
+1. Add our library as a script by either using the CDN or download a graph file in the graphs folder: 
 ```<script type="text/javascript" src="graphs/line.js"></script>```
-2. Add a ```<div>``` node with a class of ```chart``` where you want your visualization to appear:
-```<div class="chart"></div>```
+
+OR
+```<script src="http://cdn.jsdelivr.net/gh/StreamlineD3/SD3-Demo@1.2/client/graphs/bundle.min.js"></script>```
+
+2. Add a ```<div>``` node with an id of ```(see below for what each visualization is called)``` where you want your visualization to appear:
+```<div id="Name-Of-Visualization"></div>```
       
 And voilà! You now have a working, live-updating visualization.
+
+## Specific Settings for 
