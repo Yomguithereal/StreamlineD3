@@ -11,7 +11,7 @@ Providing developers with a simple way to create live updating visualizations fo
   
 ## Getting Started
 
-1. ```npm install streamlined3``` to install our library. <br/>
+1. ```npm install streamlined3```
 2. create an index.js file
 3. create an index.html file
   
