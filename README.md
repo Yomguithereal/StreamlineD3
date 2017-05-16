@@ -79,10 +79,15 @@ Because sockets and Node clusters don't work well togther without additional mea
 OR <br />
 
 ```
-<script src="http://cdn.jsdelivr.net/gh/StreamlineD3/SD3-Demo@1.2/client/graphs/bundle.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/gh/StreamlineD3/SD3-Demo@1.2/client/graphs/bundle.min.js"></script>
+```
+2. Add the dependencies: d3 (please ensure you are using version 4) and socket.io
+```
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.8.0/d3.min.js"></script>
 ```
 
-2. Add a ```<div>``` node with an id of ```(see Specific Configuration Settings for... below for what each visualization is called)``` where you want your visualization to appear:
+3. Add a ```<div>``` node with an id of ```(see Specific Configuration Settings for... below for what each visualization is called)``` where you want your visualization to appear:
 ```<div id="Name-Of-Visualization"></div>```
       
 And voilà! You now have a working, live-updating visualization.
