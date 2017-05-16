@@ -5,9 +5,9 @@ Providing developers with a simple way to create live updating visualizations fo
 
 ## Features
   * Customize colors, fonts, heights, widths, and more.
-  * Render only the data that changes for blazing fast performance with our diffing algorithm.
+  * A diffing algorithm renders only the data that changes for blazing fast performance.
   * Load balancing through Node clusters lets your app scale to multiple streams and visualizations.
-  * Pre-built ready to use visualizations including: Bar, Line, Scatter, Pie, Bubble, Word-Cloud, and World Map.
+  * Pre-built, ready to use visualizations including: Bar, Line, Scatter, Pie, Bubble, Word-Cloud, and World Map.
   
 ## Getting Started
 
@@ -92,14 +92,101 @@ OR <br />
       
 And voilà! You now have a working, live-updating visualization.
 
+
 ## Specific Configuration Settings for the Bar Graph
-  method name
-  config settings
-  html id name of div
+
+  1. Method
+   ```
+   myStream.connect((socket) => {
+     myStream.bar(socket, barData, barConfig);
+   });
+  ```
+  2. Config File
+   ```
+   let barConfig = {
+     setWidth: 800,
+     setHeight: 400,
+     shiftYAxis: true,
+     xDomainUpper: 20,
+     xDomainLower: 0,
+     yDomainUpper: 50,
+     yDomainLower: 0,
+     xTicks: 10,
+     yTicks: 50,
+     xScale: 'Borough',
+     volume: 'Speed',
+     yLabel_text: 'Miles Per Hour',
+     label_text_size: 20,
+     transition_speed: 1000,
+     color: ['#DAF7A6', '#FFC300', '#FF5733', '#C70039', '#900C3F', '#581845'],
+   };
+   ```
+  3. Html
+   ```
+    <div id="bar-graph"></div>
+   ```
 
 ## Specific Configuration Settings for the Line Graph
 
+  1. Method
+    ```
+    myStream.connect((socket) => {
+      myStream.line(socket, lineData, lineConfig);
+    });
+    ```
+  2. Config File
+   ```
+   let lineConfig = {
+     setWidth: 600,
+     setHeight: 400,
+     shiftXAxis: true,
+     xDomainUpper: 50,
+     xDomainLower: 0,
+     yDomainUpper: 40,
+     yDomainLower: 0,
+     xTicks: 10,
+     yTicks: 10,
+     xScale: 'counter',
+     yScale: 'num_bikes_available',
+     xLabel_text: 'at the currently reporting station',
+     yLabel_text: 'number of available bikes'
+   };
+   ```
+ 3. Html
+  ```
+   <div id="line-chart"></div>
+  ```
+
 ## Specific Configuration Settings for the Bubble Graph
+
+  1. Method
+    ```
+    myStream.connect((socket) => {
+      myStream.line(socket, lineData, lineConfig);
+    });
+    ```
+  2. Config File
+   ```
+   let lineConfig = {
+     setWidth: 600,
+     setHeight: 400,
+     shiftXAxis: true,
+     xDomainUpper: 50,
+     xDomainLower: 0,
+     yDomainUpper: 40,
+     yDomainLower: 0,
+     xTicks: 10,
+     yTicks: 10,
+     xScale: 'counter',
+     yScale: 'num_bikes_available',
+     xLabel_text: 'at the currently reporting station',
+     yLabel_text: 'number of available bikes'
+   };
+   ```
+ 3. Html
+  ```
+   <div id="line-chart"></div>
+  ```
 
 ## Specific Configuration Settings for the Word-Cloud
 
