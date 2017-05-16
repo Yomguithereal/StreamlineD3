@@ -129,11 +129,11 @@ And voilà! You now have a working, live-updating visualization.
 ## Specific Configuration Settings for the Line Graph
 
   1. Method <br/>
-    ```
-    myStream.connect((socket) => {
-      myStream.line(socket, lineData, lineConfig);
-    });
-    ```
+```
+   myStream.connect((socket) => {
+     myStream.line(socket, lineData, lineConfig);
+   });
+```
   2. Config File
    ```
    let lineConfig = {
@@ -160,11 +160,11 @@ And voilà! You now have a working, live-updating visualization.
 ## Specific Configuration Settings for the Bubble Graph
 
   1. Method <br/>
-    ```
-    myStream.connect((socket) => {
-      myStream.bubbleGraph(socket, bubbleData, bubbleConfig);
-    });
-    ```
+ ```
+   myStream.connect((socket) => {
+     myStream.bubbleGraph(socket, bubbleData, bubbleConfig);
+   });
+ ```
   2. Config File
    ```
    let bubbleConfig = {
@@ -183,11 +183,11 @@ And voilà! You now have a working, live-updating visualization.
 
 
   1. Method <br/>
-    ```
+```
     myStream.connect((socket) => {
       myStream.wordCloud(socket, wordCloudConfig);
     });
-    ```
+```
   2. Config File
    ```
     let wordCloudConfig = {
@@ -208,4 +208,57 @@ And voilà! You now have a working, live-updating visualization.
 
 ## Specific Configuration Settings for the Pie Chart
 
+  1. Method <br/>
+```
+    myStream.connect((socket) => {
+      myStream.pie(socket, pieData, pieConfig);
+    });
+ ```
+  2. Config File
+   ```
+    let pieConfig = {
+      setWidth: 400,                   
+      setHeight: 400,                  
+      category: 'genre',//category to be show in pie slices
+      count: 'count'
+    };
+   ```
+ 3. Html
+  ```
+   <div id="pie-chart"></div>
+  ```
+
 ## Specific Configuration Settings for the Scatter
+
+  1. Method <br/>
+    ```
+    myStream.connect((socket) => {
+      myStream.scatter(socket, scatterData, scatterConfig);
+    });
+    ```
+  2. Config File
+   ```
+    let scatterConfig = {
+      setWidth: 600,
+      setHeight: 400,
+      //axis
+      xDomainUpper: 1500,
+      xDomainLower: 0,
+      yDomainUpper: 20000,
+      yDomainLower: 0,
+      xTicks: 10,
+      yTicks: 10,
+      xLabel_text: 'Number of Followers',
+      yLabel_text: 'Number of Tweets',
+      label_font_size: 20,
+      xScale: 'followers_count',
+      yScale: 'statuses_count',
+      volume: 'favourites_count',
+      circle_text: '',
+      transition_speed: 5000,
+    };
+   ```
+ 3. Html
+  ```
+   <div id="scatter-plot"></div>
+  ```
