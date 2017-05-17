@@ -17,7 +17,7 @@ Providing developers with a simple way to create live updating visualizations fo
   
 ### Index.js
 
-NOTE: because our library uses load balancing through Node clusters on the back end to support scaling and optimal performance, it is important for you to NOT make a traditional server using Node or Express.  The functionality is already set up for you and no worries, you can still customize it. Follow the instructions below for more info. 
+NOTE: because our library uses load balancing through Node clusters on the back end to support scaling and optimal performance, it is important for you to NOT make a traditional server using Node or Express.  The functionality for an Express server is already set up for you and no worries, you can still customize it. Follow the instructions below for more info. 
      
 1. In your index.js file require our library:
 ```
