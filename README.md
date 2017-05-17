@@ -11,7 +11,7 @@ Providing developers with a simple way to create live updating visualizations fo
   
 ## Getting Started
 
-1. ```npm install streamlined3```
+1. ```npm install --save streamlined3 express cluster net socket.io socket.io-redis path os```
 2. create an index.js file
 3. create an index.html file
   
@@ -177,33 +177,6 @@ And voilà! You now have a working, live-updating visualization.
  3. Html
   ```
    <div id="bubble-graph"></div>
-  ```
-
-## Specific Configuration Settings for the Word-Cloud
-
-
-  1. Method <br/>
-```
-    myStream.connect((socket) => {
-      myStream.wordCloud(socket, wordCloudConfig);
-    });
-```
-  2. Config File
-   ```
-    let wordCloudConfig = {
-      colors: ['#FB3640', '#605F5E', '#1D3461', '#1F487E', '#247BA0'],
-      colorDomain: [5, 20, 40, 60, 100],
-      font: 'Source Sans Pro',
-      fontSize: 40,
-      padding: 10,
-      rotate: 0,
-      height: 600,
-      width: 2000,
-    }
-   ```
- 3. Html
-  ```
-   <div id="word-cloud"></div>
   ```
 
 ## Specific Configuration Settings for the Pie Chart
