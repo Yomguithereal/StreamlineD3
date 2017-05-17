@@ -1,15 +1,18 @@
 {
-  "name": "iochat",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "streamlined3",
+  "version": "1.1.1",
+  "description": "A library to assist with creating dynamic visualizations for live data with D3",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.2",
-    "socket.io": "^1.7.3"
+    "cluster": "^0.7.7",
+    "express": "^4.15.3",
+    "net": "^1.0.2",
+    "socket.io": "^1.7.3",
+    "socket.io-redis": "^5.0.1"
   }
 }

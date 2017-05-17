@@ -46,16 +46,16 @@ function sendFiles(app) {
 5. Look at your API data key/value pairs and find the data values that you want to visualize in your graph.  Put them inside a config object. (see Specific Configuration Settings for... below for what type of key/value pairs you'll need for each visualization):
 ```
 let config = {
-  width:      500,
-  height:     500,
-  xdomain:    10,
-  ydomain:    10,
-  xticks:     10,
-  yticks:     10,
-  xScale:     post
-  yScale:     number-of-likes
-  xLabel:     'the name of the post',
-  yLabel:     'how many likes someone got'
+  width: 500,
+  height: 500,
+  xdomain: 10,
+  ydomain: 10,
+  xticks: 10,
+  yticks: 10,
+  xScale: post
+  yScale: number-of-likes
+  xLabel: 'the name of the post',
+  yLabel: 'how many likes someone got'
 };
 ```
 6. Invoke the StreamlineD3 ```connect``` method on the new instance you created in step 2.  For names of methods you can call, see Specific Configuration Settings for... below for each type of visualization. <br/>

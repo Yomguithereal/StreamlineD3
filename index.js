@@ -1,51 +1,118 @@
 class Streamline {
-	constructor(server) {
-		this.io = require('socket.io').listen(server);
-		this.cluster = require('cluster');
-		this.numCPUs = require('os').cpus().length;
+	constructor(sendFiles, port) {
+		this.port = process.env.PORT || port;
 		this.connections = [];
-		this.server = server;
+		this.sendFiles = sendFiles;
 	}
 
 	connect(func) {
-		//load balance server with clustering so each cpu is given a task/socket
-		// if (this.cluster.isMaster) {  
-		// 		for (var i = 0; i < this.numCPUs; i++) {
-		// 				// Create a worker
-		// 				this.cluster.fork();
-		// 		}
 
-		// 	this.cluster.on('exit', function(worker, code, signal) {  
-		// 		console.log('Worker %d died with code/signal %s. Restarting worker...', worker.process.pid, signal || code);
-		// 		this.cluster.fork();
-		// 	});
+		const express = require('express');
+		const cluster = require('cluster');
+		const net = require('net');
+		const sio = require('socket.io');
+		const sio_redis = require('socket.io-redis');
 
-		// }  else {
+		const path = require('path');
 
-		this.io.sockets.on('connection', (socket) => {
-			let newSocket = socket;
-			this.connections.push(socket);
-			console.log('CONNECTED: %s SOCKETS CONNECTED', this.connections.length)
+		const num_processes = require('os').cpus().length;
 
-			socket.on('disconnect', (data) => {
-				this.connections.splice(this.connections.indexOf(socket), 1);
-				console.log('CONNECTED: %s SOCKETS CONNECTED', this.connections.length);
+		if (cluster.isMaster) {
+			// This stores our workers. We need to keep them to be able to reference
+			// them based on source IP address. It's also useful for auto-restart,
+			// for example.
+			let workers = [];
+
+			// Helper function for spawning worker at index 'i'.
+			let spawn = function (i) {
+				workers[i] = cluster.fork();
+
+				// Optional: Restart worker on exit
+				workers[i].on('exit', function (code, signal) {
+					console.log('respawning worker', i);
+					spawn(i);
+				});
+			};
+
+			// Spawn workers.
+			for (let i = 0; i < num_processes; i++) {
+				spawn(i);
+			}
+
+			// Helper function for getting a worker index based on IP address.
+			// This is a hot path so it should be really fast. The way it works
+			// is by converting the IP address to a number by removing non numeric
+			// characters, then compressing it to the number of slots we have.
+			//
+			// Compared against "real" hashing (from the sticky-session code) and
+			// "real" IP number conversion, this function is on par in terms of
+			// worker index distribution only much faster.
+			let worker_index = function (ip, len) {
+				let s = '';
+				for (let i = 0, _len = ip.length; i < _len; i++) {
+					if (!isNaN(ip[i])) {
+						s += ip[i];
+					}
+				}
+
+				return Number(s) % len;
+			};
+
+			// Create the outside facing server listening on our port.
+			let server = net.createServer({ pauseOnConnect: true }, function (connection) {
+				// We received a connection and need to pass it to the appropriate
+				// worker. Get the worker for this connection's source IP and pass
+				// it the connection.
+				let worker = workers[worker_index(connection.remoteAddress, num_processes)];
+				worker.send('sticky-session:connection', connection);
+			}).listen(this.port);
+		} else {
+			// Note we don't use a port here because the master listens on it for us.
+			let app = new express();
+
+			// Here you use middleware, attach routes, etc.
+
+			this.sendFiles(app);
+
+			let server = app.listen(0, 'localhost');
+			let io = sio(server);
+
+			// Tell Socket.IO to use the redis adapter. By default, the redis
+			// server is assumed to be on localhost:6379. You don't have to
+			// specify them explicitly unless you want to change them.
+			io.adapter(sio_redis({ host: 'localhost', port: 6379 }));
+
+			// Listen to messages sent from the master. Ignore everything else.
+			process.on('message', function (message, connection) {
+				if (message !== 'sticky-session:connection') {
+					return;
+				}
+
+				// Emulate a connection event on the server by emitting the
+				// event with the connection the master sent us.
+				server.emit('connection', connection);
+
+				connection.resume();
 			});
 
-			return func(socket);
+			io.sockets.on('connection', (socket) => {
+				let newSocket = socket;
+				this.connections.push(socket);
+				console.log('CONNECTED: %s SOCKETS CONNECTED', this.connections.length)
 
-		});
-
-		// 	this.server.listen(process.env.PORT || 3000, () => console.log('SERVER RUNNING ON 3000'));
-		// }
-
+				socket.on('disconnect', (data) => {
+					this.connections.splice(this.connections.indexOf(socket), 1);
+					console.log('CONNECTED: %s SOCKETS CONNECTED', this.connections.length);
+				});
+				return func(socket);
+			});
+		}
 	}
 
 	line(socket, data, config) {
 
 		let emitData = [];
 		let emitConfig = {};
-
 		let refConfig = {
 			setWidth: 700,
 			setHeight: 500,
@@ -84,7 +151,6 @@ class Streamline {
 		}, 1000);
 	}
 
-
 	pie(socket, data, config) {
 
 		let emitData = [];
@@ -92,11 +158,12 @@ class Streamline {
 
 		let refConfig = {
 
-			setWidth: 700,
-			setHeight: 500,
+			setWidth: '',
+			setHeight: '',
 			category: '',
 			count: ''
 		};
+
 		for (let key in config) {
 			refConfig[key] = config[key];
 		}
@@ -116,14 +183,47 @@ class Streamline {
 		}, 1000);
 	}
 
-	scatter(socket, data, config) {
+	map(socket, data, config) {
+
 		let emitData = [];
 		let emitConfig = {};
 
 		let refConfig = {
 			setWidth: 700,
+			setHeight: 700,
+			latitude: '',
+			longitude: '',
+			propOne: '',
+			propTwo: '',
+			color: ''
+		};
+
+		for (let key in config) {
+			refConfig[key] = config[key];
+		}
+
+		setInterval(() => {
+			for (let i = 0; i < data.length; i += 1) {
+
+				emitConfig = Object.assign({}, refConfig);
+				emitConfig.latitude = data[i][emitConfig.latitude];
+				emitConfig.longitude = data[i][emitConfig.longitude];
+				emitConfig.propOne = data[i][emitConfig.propOne];
+				emitConfig.propTwo = data[i][emitConfig.propTwo];
+				emitData.push(emitConfig);
+			}
+			socket.emit('sendMapData', emitData);
+			emitData = [];
+		}, 1000);
+	}
+
+	scatter(socket, data, config) {
+		let emitData = [];
+		let emitConfig = {};
+
+		let refConfig = {
+			setWidth: 960,
 			setHeight: 500,
-			shiftXAxis: false,
 			xDomainUpper: 20,
 			xDomainLower: 0,
 			yDomainUpper: 40,
@@ -133,7 +233,9 @@ class Streamline {
 			xScale: '',
 			yScale: '',
 			xLabel_text: '',
-			yLabel_text: ''
+			yLabel_text: '',
+			circle_text: '',
+			id: '',
 		};
 
 		for (let key in config) {
@@ -143,21 +245,17 @@ class Streamline {
 		setInterval(() => {
 			for (let i = 0; i < data.length; i += 1) {
 				emitConfig = Object.assign({}, refConfig);
-
 				emitConfig.xScale = data[i][emitConfig.xScale];
 				emitConfig.yScale = data[i][emitConfig.yScale];
-				emitConfig.id = 'ball-' + i;
+				emitConfig.volume = data[i][emitConfig.volume];
+				emitConfig.circle_text = data[i][emitConfig.circle_text];
+				emitConfig.id = data[i][emitConfig.id];
 				emitData.push(emitConfig);
 			}
-			if (emitData.length >= emitConfig.xDomainUpper) {
-				emitData = emitData.slice(-(emitConfig.xDomainUpper));
-			}
-
 			socket.emit('sendScatterData', emitData);
 			emitData = [];
 		}, 1000);
 	}
-
 
 	wordCloud(socket, config) {
 
@@ -168,6 +266,8 @@ class Streamline {
 			fontSize: '',
 			padding: '',
 			rotate: '',
+			height: '',
+			width: '',
 		};
 
 		for (let key in config) {
@@ -179,7 +279,6 @@ class Streamline {
 		socket.emit('send custom', emitConfig);
 
 		socket.on('send audioText', (data) => {
-			console.log('data in index', data);
 			socket.emit('send audioData', data);
 		});
 	}
@@ -195,6 +294,7 @@ class Streamline {
 			counter: '',
 			text: '',
 			volume: '',
+			color: '',
 		};
 
 		for (let key in config) {
@@ -209,7 +309,7 @@ class Streamline {
 				emitConfig.volume = data[i][emitConfig.volume];
 				emitData.push(emitConfig);
 			}
-			console.log('EMIT CONFIG: ', emitData);
+
 			socket.emit('sendBubbleData', emitData);
 			emitData = [];
 		}, 1000);
@@ -220,19 +320,20 @@ class Streamline {
 		let emitData = [];
 
 		let refConfig = {
-			setWidth: 700,
-			setHeight: 500,
+			setWidth: '',
+			setHeight: '',
 			shiftYAxis: true,
 			xDomainUpper: 20,
 			xDomainLower: 0,
-			yDomainUpper: 40,
+			yDomainUpper: 100,
 			yDomainLower: 0,
 			xTicks: 10,
-			yTicks: 10,
-			xScale: 'Borough',
-			volume: 'Speed',
-			xLabel_text: 'x axis label',
-			yLabel_text: 'y axis label',
+			yTicks: 50,
+			xScale: '',
+			volume: '',
+			yLabel_text: '',
+			label_text_size: 20,
+			transition_speed: 1000,
 			color: ['black']
 		};
 
@@ -249,13 +350,10 @@ class Streamline {
 				emitConfig.id = 'rectangle-' + i;
 				emitData.push(emitConfig);
 			}
-
 			socket.emit('sendBarData', emitData);
 			emitData = [];
 		}, 2000);
-
 	}
-
 }
 
 module.exports = Streamline;
