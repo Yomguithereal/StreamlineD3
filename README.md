@@ -11,7 +11,7 @@ Providing developers with a simple way to create live updating visualizations fo
   
 ## Getting Started
 
-1. ```npm install --save streamlined3 express cluster net socket.io socket.io-redis path os```
+1. ```npm install --save streamlined3```
 2. create an index.js file
 3. create an index.html file
   
@@ -81,13 +81,8 @@ OR <br />
 ```
   <script src="http://cdn.jsdelivr.net/gh/StreamlineD3/SD3-Demo@1.2/client/graphs/bundle.min.js"></script>
 ```
-2. Add the dependencies: d3 (please ensure you are using version 4) and socket.io
-```
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.8.0/d3.min.js"></script>
-```
 
-3. Add a ```<div>``` node with an id of ```(see Specific Configuration Settings for... below for what each visualization is called)``` where you want your visualization to appear:
+2. Add a ```<div>``` node with an id of ```(see Specific Configuration Settings for... below for what each visualization is called)``` where you want your visualization to appear:
 ```<div id="Name-Of-Visualization"></div>```
       
 And voilà! You now have a working, live-updating visualization.
