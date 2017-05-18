@@ -260,3 +260,7 @@ And voilà! You now have a working, live-updating visualization.
   ```
    <div id="map"></div>
   ```
+  4. Add this script tag:
+  ```
+   <script src="https://unpkg.com/topojson-client@3"></script>
+  ```
