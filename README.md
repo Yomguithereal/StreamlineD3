@@ -71,13 +71,11 @@ Because sockets and Node clusters don't work well togther without additional mea
 
 ### HTML
       
-1. Add our library as a script by either using the CDN or choose the graph files you want and add them individually: 
+1. Choose a graph from the graph folder in this repo and add it to a script tag.
 ```
 <script src="line.js"></script>
 ```
-
-OR <br />
-
+  Note: CDN will be coming soon...(the one below might not always work as we're building)
 ```
   <script src="http://cdn.jsdelivr.net/gh/StreamlineD3/SD3-Demo@1.2/client/graphs/bundle.min.js"></script>
 ```
