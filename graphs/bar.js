@@ -11,8 +11,6 @@
   //drawChart function needs to be invoked each time new data is present
   socket.on('sendBarData', (data) => {
 
-    //removes old div so don't keep adding indefinitely
-    $("#json-viewer").replaceWith("<div id='json-viewer'></div>")
 
     if (data.length > 0) {
       if (!settings) {
@@ -24,8 +22,6 @@
           dataCache[data[i].id] = data[i].volume;
           needsRender = true;
         }
-        //adds json data to rectangle below graph
-        $("#json-viewer").prepend( "<span class='json-stats'>" + data[i].xScale + ": " + (Math.round(data[i].volume * 100) / 100) + "<span>");
 
       }
       if (needsRender) drawChart(settings, data);
