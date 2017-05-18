@@ -81,8 +81,14 @@ OR <br />
 ```
   <script src="http://cdn.jsdelivr.net/gh/StreamlineD3/SD3-Demo@1.2/client/graphs/bundle.min.js"></script>
 ```
+2. Add the necessary dependency libraries (you must use version 4+ of d3 otherwise you will encounter errors):
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.8.0/d3.min.js"></script>
+<script src="graphs/d3-scale-chromatic.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+```
 
-2. Add a ```<div>``` node with an id of ```(see Specific Configuration Settings for... below for what each visualization is called)``` where you want your visualization to appear:
+3. Add a ```<div>``` node with an id of ```(see Specific Configuration Settings for... below for what each visualization is called)``` where you want your visualization to appear:
 ```<div id="Name-Of-Visualization"></div>```
       
 And voilà! You now have a working, live-updating visualization.
@@ -229,4 +235,28 @@ And voilà! You now have a working, live-updating visualization.
  3. Html
   ```
    <div id="scatter-plot"></div>
+  ```
+## Specific Configuration Settings for the World Map
+
+  1. Method <br/>
+ ```
+    myStream.connect((socket) => {
+      myStream.map(socket, scatterData, scatterConfig);
+    });
+```
+  2. Config File
+   ```
+   let mapConfig = {
+     setWidth: 1300,
+     setHeight: 800,
+     latitude: 'latitude',
+     longitude: 'longitude',
+     mapItem: 'satellite', //the thing being mapped
+     propTwo: '',
+     color:'#B0C4DE'
+   };
+   ```
+ 3. Html
+  ```
+   <div id="map"></div>
   ```
