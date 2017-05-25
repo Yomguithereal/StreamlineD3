@@ -1,5 +1,3 @@
-## <b>Project is currently in development</b>
-
 # StreamlineD3
 Providing developers with a simple way to create live updating visualizations for their streaming data.
 
@@ -75,9 +73,9 @@ Because sockets and Node clusters don't work well togther without additional mea
 ```
 <script src="line.js"></script>
 ```
-  Note: CDN will be coming soon...(the one below might not always work as we're building)
+  OR...you can use the CDN for any graph other than the world map and/or world-cloud
 ```
-  <script src="http://cdn.jsdelivr.net/gh/StreamlineD3/SD3-Demo@1.2/client/graphs/bundle.min.js"></script>
+   <script src="http://cdn.jsdelivr.net/gh/StreamlineD3/SD3-Demo@1.4/client/graphs/bundle.min.js"></script>
 ```
 2. Add the necessary dependency libraries (you must use version 4+ of d3 otherwise you will encounter errors):
 ```
